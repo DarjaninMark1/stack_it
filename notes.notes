@@ -1,0 +1,43 @@
+*Evidence knih a mediálních nosičů*
+    Vytvořte aplikaci pro domácí evidenci knih, CD a DVD. Vytvořte následující funkce:
+    • zobrazení seznamu všech položek dohromady
+    • filtrování jednotlivých skupin (jen knihy, jen CD a jen DVD).
+    • zakládat položky, upravovat detail položek, odstranit záznamy (CRUD operace)
+    • u položky evidovat základní informace, např. název, autor či režisér, datum pořízení, popis atd.
+    • u položek evidovat zapůjčení (např. vyplněním jména půjčujícího)
+    • zobrazení zapůjčených položek (např. zobrazením seznamu s nastaveným filtrem)
+    Ukládání dat řešte ideálně pomocí relační databáze, případně ukládáním do souboru v libovolném formátu
+    (XML,text apod.).
+
+    TECHSTACK:
+
+    Appka/FE: Flutter
+    BE: Supabase + PG
+
+    Q:
+    Obalit do dockeru? 
+    moznost pridani vlastni kategorie?
+    how to start it with custom pass? 
+
+
+    TODO:
+
+    [√] zalozit supabase a dobouchat se na nej z Insomnie
+    [ ] vymyslet model na CD a DVD (a auticka)
+    [ ] zkusit CRUD + obrazky
+    [ ] namalovat si UI
+    [√] napsat zakladni komponentu a dobouchat se na BE z Flutteru
+    [ ] vyzokuset na mobilu 
+    [ ]  udleat logo 
+    [ ] dat to promenych z mainu url a token
+    [ ] nastavit RLS
+    [ ] expiring photos? 
+
+    [ ] rozjet na domacim serveru 
+    [ ] zobrazení seznamu všech položek dohromady
+    [ ] filtrování jednotlivých skupin (jen knihy, jen CD a jen DVD).
+    [ ] zakládat položky, upravovat detail položek, odstranit záznamy (CRUD operace)
+    [ ] u položky evidovat základní informace, např. název, autor či režisér, datum pořízení, popis atd.
+    [ ] u položek evidovat zapůjčení (např. vyplněním jména půjčujícího)
+    [ ] zobrazení zapůjčených položek (např. zobrazením seznamu s nastaveným filtrem)
+    

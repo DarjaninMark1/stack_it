@@ -23,16 +23,15 @@
     TODO:
 
     [√] zalozit supabase a dobouchat se na nej z Insomnie
-    [ ] vymyslet model na CD a DVD (a auticka)
+    [√] vymyslet model na CD a DVD (a auticka)
+    [√] napsat zakladni komponentu a dob1ouchat se na BE z Flutteru
     [ ] zkusit CRUD + obrazky
-    [ ] namalovat si UI
-    [√] napsat zakladni komponentu a dobouchat se na BE z Flutteru
+    [ ] udelat si testovaci data
     [ ] vyzokuset na mobilu 
-    [ ]  udleat logo 
+    [ ] required new_item_second dodelat
     [ ] dat to promenych z mainu url a token
+    [ ] nastavit dockery
     [ ] nastavit RLS
-    [ ] expiring photos? 
-
     [ ] rozjet na domacim serveru 
     [ ] zobrazení seznamu všech položek dohromady
     [ ] filtrování jednotlivých skupin (jen knihy, jen CD a jen DVD).
@@ -40,4 +39,6 @@
     [ ] u položky evidovat základní informace, např. název, autor či režisér, datum pořízení, popis atd.
     [ ] u položek evidovat zapůjčení (např. vyplněním jména půjčujícího)
     [ ] zobrazení zapůjčených položek (např. zobrazením seznamu s nastaveným filtrem)
+    [ ] expiring photos? 
+    [ ] udleat logo 
     

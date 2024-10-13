@@ -31,8 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // Check for errors
       if (response.error != null) {
-        print("Hello, World!");
-
         setState(() {
           _errorMessage = response.error!.message;  // Updated error handling
         });

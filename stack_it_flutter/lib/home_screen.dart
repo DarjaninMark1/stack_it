@@ -26,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _fetchItems() async {
     try {
-      final user = Supabase.instance.client.auth.currentUser; // Get the logged-in user
+      final user =
+          Supabase.instance.client.auth.currentUser; // Get the logged-in user
       if (user != null) {
         // Fetch items from the database
         final response = await Supabase.instance.client
@@ -72,14 +73,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _isLoading
           ? Center(child: CircularProgressIndicator()) // Show loading indicator
           : _errorMessage != null
-              ? Center(child: Text('Error: $_errorMessage')) // Show error message
+              ? Center(
+                  child: Text('Error: $_errorMessage')) // Show error message
               : ListView.builder(
                   itemCount: _items.length,
                   itemBuilder: (context, index) {
                     final item = _items[index];
                     return ListTile(
-                      leading: Image.network(item['image_url'], fit: BoxFit.fitHeight),
-                      title: Text(item['name'] ?? 'Unnamed Item'), // Replace with your item name field
+                      leading: Image.network(item['image_url'],
+                          fit: BoxFit.fitHeight),
+                      title: Text(item['name'] ??
+                          'Unnamed Item'), // Replace with your item name field
                       subtitle: Text(item['description'] ?? 'No description'),
                       onTap: () {
                         // Navigate to DetailScreen and pass the selected item
@@ -100,7 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => NewItemScreen(), // Ensure this screen is created
+              builder: (context) =>
+                  NewItemScreen(), // Ensure this screen is created
             ),
           );
         },

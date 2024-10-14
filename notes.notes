@@ -34,9 +34,8 @@
     [√] zakládat položky, upravovat detail položek, odstranit záznamy (CRUD operace)
     [√] u položky evidovat základní informace, např. název, autor či režisér, datum pořízení, popis atd.
     [√] u položek evidovat zapůjčení (např. vyplněním jména půjčujícího)
-    [ ] filtrování jednotlivých skupin (jen knihy, jen CD a jen DVD).
-    [ ] zobrazení zapůjčených položek (např. zobrazením seznamu s nastaveným filtrem)
-    [ ] nastavit RLS
+    [√] filtrování jednotlivých skupin (jen knihy, jen CD a jen DVD).
+    [√] zobrazení zapůjčených položek (např. zobrazením seznamu s nastaveným filtrem)
     [ ] + obrazky
     [ ] nastavit dockery
     

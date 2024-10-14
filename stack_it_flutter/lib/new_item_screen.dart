@@ -99,19 +99,11 @@ class _NewItemScreenState extends State<NewItemScreen> {
 
         log('ItemModels: ${response}'); // Log the response data
 
-        // Check for errors in the response
-        if (response.error != null) {
-          setState(() {
-            _errorMessage = response.error!.message; // Set error message if any
-            _isLoading = false;
-          });
-        } else {
           // The data is now accessible as response.data
           setState(() {
             _items.addAll(response); // Add the items to the list
             _isLoading = false; // Update loading state
           });
-        }
       } else {
         setState(() {
           _errorMessage = "User not logged in.";
@@ -143,16 +135,6 @@ class _NewItemScreenState extends State<NewItemScreen> {
             final response = await Supabase.instance.client.storage
                 .from('images')
                 .upload(fileName, _image!);
-
-            if (response.error != null) {
-              log('Error uploading image: ${response.error!.message}');
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(
-                        'Error uploading image: ${response.error!.message}')),
-              );
-              return;
-            }
 
             // Get the public URL of the uploaded image
             imageUrl = Supabase.instance.client.storage
@@ -193,12 +175,4 @@ class _NewItemScreenState extends State<NewItemScreen> {
       }
     }
   }
-}
-
-extension on PostgrestList {
-  get error => null;
-}
-
-extension on String {
-  get error => null;
 }

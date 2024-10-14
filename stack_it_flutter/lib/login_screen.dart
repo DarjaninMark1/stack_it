@@ -29,15 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
         password: password,
       );
 
-      // Check for errors
-      if (response.error != null) {
-        setState(() {
-          _errorMessage = response.error!.message;  // Updated error handling
-        });
-      } else {
         // Successful login, navigate to the home screen or another screen
         Navigator.pushReplacementNamed(context, '/home'); // Adjust the route as needed
-      }
+      
     } catch (e) {
       setState(() {
         _errorMessage = e.toString();
@@ -91,8 +85,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-}
-
-extension on AuthResponse {
-  get error => null;
 }

@@ -36,17 +36,10 @@ class _DetailScreenState extends State<DetailScreen> {
 
         log('Attributes: $response'); // Log the response data
 
-        if (response.error != null) {
-          setState(() {
-            _errorMessage = response.error!.message; // Set error message
-            _isLoading = false;
-          });
-        } else {
-          setState(() {
-            _items.addAll(response); // Add the attributes to the list
-            _isLoading = false;
-          });
-        }
+        setState(() {
+          _items.addAll(response); // Add the attributes to the list
+          _isLoading = false;
+        });
       } else {
         setState(() {
           _errorMessage = "User not logged in.";
@@ -78,19 +71,11 @@ class _DetailScreenState extends State<DetailScreen> {
         widget.item['borrow_to'] = response[0]['borrow_to'];
         widget.item['name'] = response[0]['name'];
 
-        // Check for errors in the response
-        if (response.error != null) {
-          setState(() {
-            _errorMessage = response.error!.message; // Set error message if any
-            _isLoading = false;
-          });
-        } else {
-          // The data is now accessible as response.data
-          setState(() {
-            _items.addAll(response); // Add the items to the list
-            _isLoading = false; // Update loading state
-          });
-        }
+        // The data is now accessible as response.data
+        setState(() {
+          _items.addAll(response); // Add the items to the list
+          _isLoading = false; // Update loading state
+        });
       } else {
         setState(() {
           _errorMessage = "User not logged in.";
@@ -192,14 +177,16 @@ class _DetailScreenState extends State<DetailScreen> {
                       height: 200,
                       child: Center(child: Text('No Image Available'))),
               SizedBox(height: 16),
-              widget.item['borrow_to'] != null && !widget.item['borrow_to'].isEmpty
+              widget.item['borrow_to'] != null &&
+                      !widget.item['borrow_to'].isEmpty
                   ? Text(
                       'Borrowed to:',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     )
                   : SizedBox(height: 0), // Display image
-              widget.item['borrow_to'] != null && !widget.item['borrow_to'].isEmpty
+              widget.item['borrow_to'] != null &&
+                      !widget.item['borrow_to'].isEmpty
                   ? Text(widget.item['borrow_to'])
                   : SizedBox(height: 0), // Display image
               SizedBox(height: 16),
@@ -253,8 +240,4 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
     );
   }
-}
-
-extension on PostgrestList {
-  get error => null;
 }

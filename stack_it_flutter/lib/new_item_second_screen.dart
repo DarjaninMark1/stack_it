@@ -37,32 +37,24 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
           .select('*')
           .eq('model_id', widget.item['id']);
 
-      if (response.error != null) {
-        log('Error fetching dynamic inputs: ${response.error!.message}');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text(
-                  'Error fetching dynamic inputs: ${response.error!.message}')),
-        );
-      } else {
-        // Assuming response.data is a list of maps
-        List<dynamic> inputs = response;
+      // Assuming response.data is a list of maps
+      List<dynamic> inputs = response;
 
-        // Clear previous controllers and labels
-        _controllers.clear();
-        _inputLabels.clear();
+      // Clear previous controllers and labels
+      _controllers.clear();
+      _inputLabels.clear();
 
-        // Create controllers and labels based on fetched data
-        for (var input in inputs) {
-          // Create a controller for each input field
-          _controllers.add(TextEditingController());
+      // Create controllers and labels based on fetched data
+      for (var input in inputs) {
+        // Create a controller for each input field
+        _controllers.add(TextEditingController());
 
-          // Add label, converting to String if necessary
-          _inputLabels.add(input['attribute_name']?.toString() ?? ''); // Convert to String to avoid TypeError
-        }
-
-        setState(() {}); // Rebuild UI with new controllers
+        // Add label, converting to String if necessary
+        _inputLabels.add(input['attribute_name']?.toString() ??
+            ''); // Convert to String to avoid TypeError
       }
+
+      setState(() {}); // Rebuild UI with new controllers
     } catch (e) {
       log('Error fetching inputs: $e');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -98,7 +90,7 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
                   },
                 ),
                 SizedBox(height: 16),
-                
+
                 // Fixed Description field
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Description'),
@@ -188,25 +180,15 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
             fileOptions: const FileOptions(contentType: 'image/jpeg'),
           );
 
-      // Check for errors during upload
-      if (response.error != null) {
-        log('Error uploading image: ${response.error!.message}');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content:
-                  Text('Error uploading image: ${response.error!.message}')),
-        );
-      } else {
-        log('Image uploaded successfully: $filePath');
+      log('Image uploaded successfully: $filePath');
 
-        // Get the public URL of the uploaded image
-        final imageUrl = Supabase.instance.client.storage
-            .from('images')
-            .getPublicUrl(filePath);
-        log('Image URL: $imageUrl');
+      // Get the public URL of the uploaded image
+      final imageUrl = Supabase.instance.client.storage
+          .from('images')
+          .getPublicUrl(filePath);
+      log('Image URL: $imageUrl');
 
-        // You can store or use the imageUrl as needed
-      }
+      // You can store or use the imageUrl as needed
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('User not logged in')),
@@ -233,16 +215,6 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
                 .from('images') // Use the correct bucket name
                 .upload(fileName, _image!);
 
-            if (uploadResponse.error != null) {
-              log('Error uploading image: ${uploadResponse.error!.message}');
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(
-                        'Error uploading image: ${uploadResponse.error!.message}')),
-              );
-              return; // Exit if image upload fails
-            }
-
             // Get the public URL of the uploaded image
             imageUrl = Supabase.instance.client.storage
                 .from('images')
@@ -262,8 +234,8 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
           final firstInsertResponse =
               await Supabase.instance.client.from('CollectorItems').insert({
             'user_id': user.id, // Associate the item with the user
-            'name':
-                _controllers[0].text, // Use the text from the first input as the name
+            'name': _controllers[0]
+                .text, // Use the text from the first input as the name
             'description': _controllers[1]
                 .text, // Use the text from the second input as the description
             'image_url': imageUrl, // Use uploaded image URL
@@ -294,7 +266,6 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
               .insert(
                   attributeInserts); // Batch insert the array of key-value pairs
 
-
           // Step 5: If both inserts pass, navigate to the home screen
           Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
         } else {
@@ -310,12 +281,4 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
       }
     }
   }
-}
-
-extension on String {
-  get error => null;
-}
-
-extension on PostgrestList {
-  get error => null;
 }

@@ -1,3 +1,5 @@
 stack_it_flutter/ios/Runner.xcodeproj/project.pbxproj
 stack_it_flutter/ios/Runner.xcworkspace/contents.xcworkspacedata
 stack_it_flutter/ios/Podfile.lock
+
+*/node_modules/*

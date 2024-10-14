@@ -173,9 +173,17 @@ class _DetailScreenState extends State<DetailScreen> {
                       widget.item['image_url'].isNotEmpty
                   ? Image.network(widget.item['image_url'],
                       fit: BoxFit.cover) // Display image
-                  : SizedBox(
-                      height: 200,
-                      child: Center(child: Text('No Image Available'))),
+                  : Container(
+                        height: 200,
+                        width: 200,
+                        color: Colors.grey[300],
+                        child: Center(
+                          child: Text(
+                            'No image available',
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                        ),
+                      ),
               SizedBox(height: 16),
               widget.item['borrow_to'] != null &&
                       !widget.item['borrow_to'].isEmpty

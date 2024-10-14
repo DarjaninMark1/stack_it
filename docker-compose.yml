@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  flutter_app:
+    build:
+      context: ./stack_it_flutter  # Adjust this path
+    ports:
+      - "8080:80"
+    volumes:
+      - ./stack_it_flutter:/app

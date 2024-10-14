@@ -73,13 +73,13 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: _login,
               child: Text('Login'),
             ),
-            SizedBox(height: 20),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/signup'); // Navigate to signup screen
-              },
-              child: Text('Don\'t have an account? Sign Up'),
-            ),
+            // SizedBox(height: 20),
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.pushNamed(context, '/signup'); // Navigate to signup screen
+            //   },
+            //   child: Text('Don\'t have an account? Sign Up'),
+            // ),
           ],
         ),
       ),

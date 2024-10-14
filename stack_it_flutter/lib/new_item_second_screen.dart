@@ -32,7 +32,6 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
   Future<void> _fetchDynamicInputs() async {
     try {
       // Fetch dynamic input configuration or data from Supabase
-      // log(widget.item['id']);
       final response = await Supabase.instance.client
           .from('ModelAttributes')
           .select('*')
@@ -59,8 +58,7 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
           _controllers.add(TextEditingController());
 
           // Add label, converting to String if necessary
-          _inputLabels.add(input['attribute_name']?.toString() ??
-              ''); // Convert to String to avoid TypeError
+          _inputLabels.add(input['attribute_name']?.toString() ?? ''); // Convert to String to avoid TypeError
         }
 
         setState(() {}); // Rebuild UI with new controllers
@@ -86,6 +84,36 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                // Fixed Name field
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Item Name'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter item name';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    // Optionally update if needed
+                  },
+                ),
+                SizedBox(height: 16),
+                
+                // Fixed Description field
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Description'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a description';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    // Optionally update if needed
+                  },
+                ),
+                SizedBox(height: 16),
+
                 // Build dynamic input fields based on fetched data
                 for (int i = 0; i < _controllers.length; i++)
                   TextFormField(
@@ -98,6 +126,9 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
                       return null;
                     },
                   ),
+                SizedBox(height: 16),
+
+                // Image Picker
                 _image != null
                     ? Image.file(_image!,
                         height: 100, width: 100, fit: BoxFit.cover)
@@ -136,8 +167,7 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
     }
   }
 
-// Function to upload file to Supabase storage
-// Function to upload file to Supabase storage
+  // Function to upload file to Supabase storage
   Future<void> uploadFile(File file) async {
     final user = Supabase.instance.client.auth.currentUser;
 
@@ -146,14 +176,8 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
       final filePath =
           '${user.id}/${DateTime.now().millisecondsSinceEpoch}.jpg';
 
-      log(filePath);
-      log("filePath10");
-
       // Read the file's bytes using readAsBytes
       final Uint8List fileBytes = await file.readAsBytes();
-      // log(fileBytes.toString());
-
-      log("filePath1");
 
       // Upload the file to Supabase storage
       final response = await Supabase.instance.client.storage
@@ -163,8 +187,6 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
             fileBytes,
             fileOptions: const FileOptions(contentType: 'image/jpeg'),
           );
-
-      log("filePath2");
 
       // Check for errors during upload
       if (response.error != null) {
@@ -241,10 +263,11 @@ class _NewItemSecondScreenState extends State<NewItemSecondScreen> {
               await Supabase.instance.client.from('CollectorItems').insert({
             'user_id': user.id, // Associate the item with the user
             'name':
-                _controllers[0].text, // Assuming the first input is the name
+                _controllers[0].text, // Use the text from the first input as the name
             'description': _controllers[1]
-                .text, // Assuming the second input is the description
+                .text, // Use the text from the second input as the description
             'image_url': imageUrl, // Use uploaded image URL
+            'model_id': widget.item['id'], // Use uploaded image URL
           }).select();
 
           // Access the inserted data, including the item ID

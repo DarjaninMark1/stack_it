@@ -29,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
       final user =
           Supabase.instance.client.auth.currentUser; // Get the logged-in user
       if (user != null) {
-        // Fetch items from the database
+        // Fetch items with model names from the database using a JOIN
         final response = await Supabase.instance.client
             .from('CollectorItems')
-            .select('*')
+            .select('*, ItemModels(model_name)')
             .eq('user_id', user.id);
 
         log('data: ${response}'); // Log the response data
@@ -79,12 +79,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: _items.length,
                   itemBuilder: (context, index) {
                     final item = _items[index];
+                    log(item.toString());
+                    log(item['model_name'].toString());
                     return ListTile(
                       leading: Image.network(item['image_url'],
                           fit: BoxFit.fitHeight),
                       title: Text(item['name'] ??
                           'Unnamed Item'), // Replace with your item name field
-                      subtitle: Text(item['description'] ?? 'No description'),
+                      subtitle: Text(item['ItemModels']['model_name'] ?? 'No model name'),
+                      trailing: Text(item['borrow_to'] ?? ''),
                       onTap: () {
                         // Navigate to DetailScreen and pass the selected item
                         Navigator.push(

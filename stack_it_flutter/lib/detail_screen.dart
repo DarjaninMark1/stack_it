@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stack_it/update_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:developer'; // For logging
 import 'new_item_second_screen.dart';
@@ -91,18 +92,26 @@ class _DetailScreenState extends State<DetailScreen> {
 }
 
 
-  void _navigateToUpdateScreen() {
-    // Assuming you have a screen for updating items, push to that screen
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => NewItemSecondScreen(item: widget.item), // Replace with your update screen
-      ),
-    );
-  }
+void _navigateToUpdateScreen() {
+  // Push the update screen, passing the current item
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => UpdateScreen(item: {
+        'id': widget.item['id'],
+        'name': widget.item['name'],
+        'description': widget.item['description'],
+        'borrow_to': widget.item['borrow_to'],
+        'image_url': widget.item['image_url'],
+        'attributes': _items, // Pass the attributes
+      }),
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
+    log(widget.item.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.item['item_name'] ?? 'Item Details'),
@@ -127,6 +136,21 @@ class _DetailScreenState extends State<DetailScreen> {
               widget.item['image_url'] != null
                   ? Image.network(widget.item['image_url'], fit: BoxFit.cover) // Display image
                   : SizedBox(height: 200, child: Center(child: Text('No Image Available'))),
+              SizedBox(height: 16),
+               widget.item['borrow_to'] != null
+                  ?    Text(
+                'Borrowed to:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ) : SizedBox(height: 0), // Display image
+               widget.item['borrow_to'] != null
+                  ? Text(widget.item['borrow_to']) : SizedBox(height: 0), // Display image
+              SizedBox(height: 16),
+                          Text(
+                'Name:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              SizedBox(height: 4),
+              Text(widget.item['name'] ?? 'No description available'), // Display description
               SizedBox(height: 16),
               Text(
                 'Description:',
